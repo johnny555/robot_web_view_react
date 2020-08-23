@@ -21,6 +21,5 @@ app.get('/api/locations', (req, res) => {
     })
 })
 
-app.use(express.static('static'));
 
 app.listen(process.env.PORT || 8080);
