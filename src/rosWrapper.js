@@ -1,7 +1,7 @@
 import React from 'react'
 import ROSLIB from 'roslib'
 
-import { Input, Divider, Button, Icon } from 'semantic-ui-react';
+import { Divider, Button, Header, Card, Grid } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
 
@@ -71,22 +71,46 @@ class ROSWrapper extends React.Component {
         this.state.ros.close();
     }
 
+    set_goal = (g) => {
+        this.setState((state) => {
+            return { goal: g };
+        });
+    }
+
+    cancel = () => {
+        if (this.state.goal) {
+            this.state.goal.cancel();
+            this.setState((state) => {
+                return { goal: null };
+            });
+        };
+    }
+
     render() {
+
+        var stop_button_active = 'disabled';
+        if (this.state.goal) {
+            stop_button_active='disabled';
+        }
 
         //If connected
         if (this.state.connected) {
             return (
-                <div>
-                    <Panel actionClient={this.state.actionClient} />
-                    <Divider />
-                    <ROSInfoView ros_state={this.state} />
-                </div>)
+                    <>
+                        <Card> <Button onClick={this.cancel} color="red" active={this.state.goal} >STOP</Button> </Card>
+
+                        <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} />
+                        <Divider />
+                        <ROSInfoView ros_state={this.state} />
+                    </>
+
+                )
         }
         else {
 
             return (
                 <p>
-                    <Button onClick={this.connect} >Connect to Robot</Button>
+                   <Card> <Button onClick={this.connect} >Connect to Robot</Button></Card>
                 </p>
             )
         }

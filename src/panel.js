@@ -30,6 +30,7 @@ class Panel extends React.Component {
                     key={index} 
                     actionClient={this.props.actionClient}
                     pose={value.pose}
+                    set_goal={this.props.set_goal}
                     ></Waypoint>)
        }
 

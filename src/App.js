@@ -10,13 +10,22 @@ function App() {
   return (
     <div className="App">
    <Container style={{ margin: 20 }}>
+
+   <Grid centered columns={3}>
+                    <Grid.Column></Grid.Column>
+
+     <Grid.Column>           
     <Header as='h2' icon>
       <Icon name="coffee" />
       KRYTN CONTROL PANEL
     </Header>
     
     <ROSWrapper />
+    </Grid.Column>
 
+    <Grid.Column></Grid.Column>
+
+</Grid>
   </Container>
 
   </div>

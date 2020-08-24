@@ -16,6 +16,7 @@ class WayPoint extends React.Component {
 
     setGoal = () => {
         console.log('setting goal... ')
+
         var goal = new ROSLIB.Goal({
             actionClient: this.props.actionClient,
             
@@ -38,7 +39,13 @@ class WayPoint extends React.Component {
             this.setState({ moving: false, goal: null });
         });
 
+        goal.on('cancel', (event) => {
+            this.setState({ moving: false, goal: null})
+        });
+
         goal.send();
+
+        this.props.set_goal(goal);
 
         this.setState({ moving: true, goal: goal });
 
@@ -46,8 +53,6 @@ class WayPoint extends React.Component {
 
     cancel = () => {
         this.state.goal.cancel();
-        this.setState({ moving: false, goal: null })
-
     }
 
 
@@ -59,20 +64,12 @@ class WayPoint extends React.Component {
         }
         var stopButton = "";
 
-        //if (this.moving) {
-            stopButton = <Button basic color="red" onClick={this.cancel}>Stop</Button>
-        //}
-
-
 
         return (
             <Card>
-                <Card.Content>
-                    <Card.Header>{this.props.name} </Card.Header>
-                    <Card.Meta>{meta} </Card.Meta>
-                    <Button basic color="green" onClick={this.setGoal}>Go</Button>
-                    { stopButton }   
-                </Card.Content>
+                <Card>
+                    <Button  color="green" onClick={this.setGoal}>{this.props.name}</Button>
+                </Card>
 
             </Card>
 
