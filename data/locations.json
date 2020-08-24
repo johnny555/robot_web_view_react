@@ -1,6 +1,7 @@
 [
     {
         "name": "burger",
+        "color": "green",
         "pose": {
             "pose": {
                 "position": {
@@ -19,6 +20,7 @@
     },
     {
         "name": "home",
+        "color": "blue",
         "pose": {
             "pose": {
                 "position": {

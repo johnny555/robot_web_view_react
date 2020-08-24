@@ -68,7 +68,7 @@ class WayPoint extends React.Component {
         return (
             <Card>
                 <Card>
-                    <Button  color="green" onClick={this.setGoal}>{this.props.name}</Button>
+                    <Button  color={this.props.color} onClick={this.setGoal}>{this.props.name}</Button>
                 </Card>
 
             </Card>

@@ -26,7 +26,8 @@ class Panel extends React.Component {
 
        for (const [index, value] of this.state.locations.entries() ) {
            elements.push(<Waypoint 
-                    name={value.name} 
+                    name={value.name}
+                    color={value.color} 
                     key={index} 
                     actionClient={this.props.actionClient}
                     pose={value.pose}
