@@ -38,7 +38,10 @@ class Panel extends React.Component {
 
        return ( 
            <div>
-            {elements}     
+            {elements}  
+            <Card>
+                    <Button  color="red" onClick={this.props.reverse}>REVERSE!</Button>
+            </Card>   
           </div>
            )
        

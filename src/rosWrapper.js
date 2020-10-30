@@ -14,11 +14,12 @@ class ROSWrapper extends React.Component {
             connected: false,
             ros: null,
             loading: false,
-            rosbridge_address: 'ws://ubiquityrobot.local',
+            rosbridge_address: 'ws://10.1.1.184',
             port: '9090',
             actionClient: null,
             goal: null,
-            poseTopic: null
+            poseTopic: null,
+            cmdTopic: null,
         };
 
     }
@@ -46,6 +47,11 @@ class ROSWrapper extends React.Component {
                 messageType: "geometry_msgs/PoseWithCovarianceStamped"
             });
 
+            var cmdTopic = new ROSLIB.Topic({
+                ros: ros,
+                name: "/cmd_vel",
+                messageType: "geometry_msgs/Twist"
+            });
 
             this.setState({
                 connected: true,
@@ -86,6 +92,13 @@ class ROSWrapper extends React.Component {
         };
     }
 
+    reverse = () => {
+        this.cmdTopic.publish({
+            "linear": { "x": -1, "y": 0, "z": 0 },
+            "angular": { "x": 0, "y": 0, "z": 0 }
+        });
+    }
+
     render() {
 
         var stop_button_active = 'disabled';
@@ -99,7 +112,7 @@ class ROSWrapper extends React.Component {
                     <>
                         <Card> <Button onClick={this.cancel} color="red" active={this.state.goal} >STOP</Button> </Card>
 
-                        <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} />
+                        <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
                         <ROSInfoView ros_state={this.state} />
                     </>
