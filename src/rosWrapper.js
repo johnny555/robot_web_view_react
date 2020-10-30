@@ -57,7 +57,8 @@ class ROSWrapper extends React.Component {
                 connected: true,
                 loading: false,
                 actionClient: actionClient,
-                poseTopic: poseTopic
+                poseTopic: poseTopic,
+                cmdTopic: cmdTopic
             });
 
         })
@@ -93,7 +94,7 @@ class ROSWrapper extends React.Component {
     }
 
     reverse = () => {
-        this.cmdTopic.publish({
+        this.state.cmdTopic.publish({
             "linear": { "x": -1, "y": 0, "z": 0 },
             "angular": { "x": 0, "y": 0, "z": 0 }
         });
