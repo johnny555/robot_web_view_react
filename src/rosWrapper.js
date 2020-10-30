@@ -7,8 +7,8 @@ import ROSInfoView from './rosInfoView';
 
 class ROSWrapper extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             connected: false,
@@ -115,6 +115,9 @@ class ROSWrapper extends React.Component {
 
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
+                        <Card>
+                        <Button  color="red" onClick={this.reverse}>REVERSE!</Button>
+                        </Card>   
                         <ROSInfoView ros_state={this.state} />
                     </>
 
