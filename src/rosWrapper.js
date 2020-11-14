@@ -5,6 +5,8 @@ import { Divider, Button, Header, Card, Grid } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
 
+import NippleController from "./nippleControl";
+
 class ROSWrapper extends React.Component {
 
     constructor(props) {
@@ -100,6 +102,13 @@ class ROSWrapper extends React.Component {
         });
     }
 
+    move = (dv, dt) => {
+        this.state.cmdTopic.publish({
+            "linear": { "x": dv, "y": 0, "z": 0 },
+            "angular": { "x": 0, "y": 0, "z": dt }
+        });
+    }
+
     render() {
 
         var stop_button_active = 'disabled';
@@ -115,10 +124,19 @@ class ROSWrapper extends React.Component {
 
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
-                        <Card>
-                        <Button  color="red" onClick={this.reverse}>REVERSE!</Button>
-                        </Card>   
                         <ROSInfoView ros_state={this.state} />
+                        <Divider />
+                        <NippleController 
+                            cmd_vel={this.move}
+                            title="Controller"
+                            width={100}
+                            height={100}
+                            options={{
+                                mode: "static",
+                                color: "blue",
+                                position: { top: "50%", left: "50%" }
+                                }}  
+                        />
                     </>
 
                 )
