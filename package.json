@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "express": "^4.17.1",
     "react": "^16.13.1",
+    "react-canvas-gauges": "^1.2.1",
     "react-dom": "^16.13.1",
     "react-nipple": "^1.0.2",
     "react-ros": "0.0.7",

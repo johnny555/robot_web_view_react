@@ -12,16 +12,18 @@ class ROSWrapper extends React.Component {
     constructor(props) {
         super(props);
 
+        var hostname = window.location.hostname;
         this.state = {
             connected: false,
             ros: null,
             loading: false,
-            rosbridge_address: 'ws://10.1.1.184',
+            rosbridge_address: 'ws://' + hostname, //extract hostname from window
             port: '9090',
             actionClient: null,
             goal: null,
             poseTopic: null,
             cmdTopic: null,
+            batteryTopic: null,
         };
 
     }
@@ -49,6 +51,12 @@ class ROSWrapper extends React.Component {
                 messageType: "geometry_msgs/PoseWithCovarianceStamped"
             });
 
+            var batteryTopic = new ROSLIB.Topic({
+                ros: ros,
+                name: "/battery_state",
+                messageType: "sensor_msgs/BatteryState"
+            });
+
             var cmdTopic = new ROSLIB.Topic({
                 ros: ros,
                 name: "/cmd_vel",
@@ -60,7 +68,8 @@ class ROSWrapper extends React.Component {
                 loading: false,
                 actionClient: actionClient,
                 poseTopic: poseTopic,
-                cmdTopic: cmdTopic
+                cmdTopic: cmdTopic,
+                batteryTopic: batteryTopic
             });
 
         })
@@ -109,6 +118,12 @@ class ROSWrapper extends React.Component {
         });
     }
 
+    componentDidMount = () => {
+        // attempt automatic connection
+        this.connect();
+    }
+
+
     render() {
 
         var stop_button_active = 'disabled';
@@ -124,8 +139,6 @@ class ROSWrapper extends React.Component {
 
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
-                        <ROSInfoView ros_state={this.state} />
-                        <Divider />
                         <NippleController 
                             cmd_vel={this.move}
                             title="Controller"
@@ -137,6 +150,9 @@ class ROSWrapper extends React.Component {
                                 position: { top: "50%", left: "50%" }
                                 }}  
                         />
+                        <Divider />
+                        <ROSInfoView ros_state={this.state} />
+
                     </>
 
                 )
