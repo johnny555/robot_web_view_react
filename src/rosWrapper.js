@@ -1,7 +1,7 @@
 import React from 'react'
 import ROSLIB from 'roslib'
 
-import { Divider, Button, Header, Card, Grid } from 'semantic-ui-react';
+import { Divider, Button, Header, Card, Grid, Message } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
 
@@ -21,9 +21,11 @@ class ROSWrapper extends React.Component {
             port: '9090',
             actionClient: null,
             goal: null,
+            motorOn: false,
             poseTopic: null,
             cmdTopic: null,
             batteryTopic: null,
+            motorPowerTopic: null,
         };
 
     }
@@ -63,13 +65,26 @@ class ROSWrapper extends React.Component {
                 messageType: "geometry_msgs/Twist"
             });
 
+            var motorPowerTopic = new ROSLIB.Topic({
+                ros: ros,
+                name: "/motor_power_active",
+                messageType: "std_msgs/Bool"
+            });
+
+            motorPowerTopic.subscribe((motor_message) => {
+
+                console.log(motor_message.data);
+                this.setState({motorOn: motor_message.data});
+            });
+
             this.setState({
                 connected: true,
                 loading: false,
                 actionClient: actionClient,
                 poseTopic: poseTopic,
                 cmdTopic: cmdTopic,
-                batteryTopic: batteryTopic
+                batteryTopic: batteryTopic,
+                motorPowerTopic: motorPowerTopic,
             });
 
         })
@@ -130,13 +145,21 @@ class ROSWrapper extends React.Component {
         if (this.state.goal) {
             stop_button_active='disabled';
         }
+        var motorOn = '';
+        if (this.state.motorOn == false) {
+            motorOn =  (
+            <>
+                <Message warning>  WARNING: MOTOR OFF. Check e-stop.
+                </Message>
+            </>)
+        }
 
         //If connected
         if (this.state.connected) {
             return (
                     <>
                         <Card> <Button onClick={this.cancel} color="red" active={this.state.goal} >STOP</Button> </Card>
-
+                        { motorOn }
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
                         <NippleController 
