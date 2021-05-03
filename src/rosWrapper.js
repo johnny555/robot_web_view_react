@@ -4,7 +4,7 @@ import ROSLIB from 'roslib'
 import { Divider, Button, Header, Card, Grid, Message } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
-
+import Nav2d from 'react-nav2djs';
 import NippleController from "./nippleControl";
 
 class ROSWrapper extends React.Component {
@@ -85,6 +85,7 @@ class ROSWrapper extends React.Component {
                 cmdTopic: cmdTopic,
                 batteryTopic: batteryTopic,
                 motorPowerTopic: motorPowerTopic,
+                ros: ros
             });
 
         })
@@ -175,7 +176,10 @@ class ROSWrapper extends React.Component {
                         />
                         <Divider />
                         <ROSInfoView ros_state={this.state} />
-
+                        <Divider />
+                        <Nav2d ros={this.state.ros}  />
+                        <div id='nav2d'> </div>
+                        <Divider />
                     </>
 
                 )

@@ -1,44 +1,6 @@
 [
-    {
-        "name": "parking",
-        "color": "purple",
-        "pose": {
-            "pose": {
-                "position": {
-                    "x": 2.35442314584,
-                    "y": 5.65341139023,
-                    "z": 0.0600472062186
-                },
-                "orientation": {
-                    "x": -0.0133512928897,
-                    "y": 0.0046441514638,
-                    "z": -0.38040558374,
-                    "w": 0.92471172086
-                }
-            }
-        }
-    },
-    {
-        "name": "burger",
-        "color": "green",
-        "pose": {
-            "pose": {
-    "position": {
-      "x": -0.25394588575,
-      "y": 0.320258944317,
-      "z": 0.0726278334001
-    },
-    "orientation": {
-      "x": 0.00977112865824,
-      "y": 0.00421322347671,
-      "z": 0.430173884376,
-      "w": 0.902683334837
-    }
-  }
-        }
-    },
-    {
-        "name": "front",
+  {
+        "name": "Grass Seats",
         "color": "green", 
         "pose": {
           "pose": {
@@ -57,7 +19,27 @@
         }
     },
     {
-        "name": "gokuVader",
+        "name": "Robot Parking",
+        "color": "purple",
+        "pose": {
+            "pose": {
+                "position": {
+                    "x": 2.35442314584,
+                    "y": 5.65341139023,
+                    "z": 0.0600472062186
+                },
+                "orientation": {
+                    "x": -0.0133512928897,
+                    "y": 0.0046441514638,
+                    "z": -0.38040558374,
+                    "w": 0.92471172086
+                }
+            }
+        }
+    },
+    
+    {
+        "name": "Goku Vader",
         "color": "blue",
         "pose": {
             "pose": {
@@ -76,8 +58,8 @@
         }  
     },
     {
-        "name": "home",
-        "color": "yellow",
+        "name": "Coffee Bar",
+        "color": "brown",
         "pose": {
             "pose": {
                 "position": {
@@ -95,8 +77,8 @@
         }
     },
     {
-        "name": "nintendo_ac",
-        "color": "green",
+        "name": "Nintendo AC",
+        "color": "grey",
         "pose": {
                 "pose": {
                   "position": {

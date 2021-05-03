@@ -10,9 +10,11 @@
     "react": "^16.13.1",
     "react-canvas-gauges": "^1.2.1",
     "react-dom": "^16.13.1",
+    "react-nav2djs": "0.0.3",
     "react-nipple": "^1.0.2",
     "react-ros": "0.0.7",
     "react-scripts": "^3.4.3",
+    "ros2d": "^0.9.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^1.2.1"
   },
