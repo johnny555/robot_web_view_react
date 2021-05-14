@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Image, Icon, Header, Button, List, Card } from 'semantic-ui-react';
-import Waypoint from "./waypoint";
 import {ROS2D} from 'ros2d'; 
 
 class Map extends React.Component {
@@ -8,16 +7,9 @@ class Map extends React.Component {
     constructor(props)
     {
         super(props)
-        this.state = {locations: []}
     }
 
     componentDidMount() {
-        fetch('/api/locations')
-        .then(res => res.json())
-        .then((data) => {
-            this.setState({ locations: data })
-        })
-        .catch(console.log)
 
         var viewer = new ROS2D.Viewer({
             divID: 'map',
@@ -38,18 +30,7 @@ class Map extends React.Component {
 
     render() {
 
-       const elements = []
-
-       for (const [index, value] of this.state.locations.entries() ) {
-           elements.push(<Waypoint 
-                    name={value.name}
-                    color={value.color} 
-                    key={index} 
-                    actionClient={this.props.actionClient}
-                    pose={value.pose}
-                    set_goal={this.props.set_goal}
-                    ></Waypoint>)
-       }
+  
 
 
        return ( 

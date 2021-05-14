@@ -4,7 +4,7 @@ import ROSLIB from 'roslib'
 import { Divider, Button, Header, Card, Grid, Message } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
-import Nav2d from 'react-nav2djs';
+import Nav2d from './react-nav2djs';
 import NippleController from "./nippleControl";
 
 class ROSWrapper extends React.Component {
