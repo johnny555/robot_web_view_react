@@ -23,8 +23,10 @@ class ROSWrapper extends React.Component {
             motorOn: false,
             poseTopic: null,
             cmdTopic: null,
+            scanTopic: null,
             batteryTopic: null,
             motorPowerTopic: null,
+            scans: null
         };
 
     }
@@ -72,14 +74,23 @@ class ROSWrapper extends React.Component {
 
             motorPowerTopic.subscribe((motor_message) => {
 
-                console.log(motor_message.data);
                 this.setState({motorOn: motor_message.data});
             });
+
+            var scanTopic = new ROSLIB.Topic({
+                ros: ros,
+                name: "/scan",
+                messageType: "sensor_msgs/LaserScan"
+            })
+
+            scanTopic.subscribe((scan_msg) => {
+                this.setState({scans: true});
+            })
 
             poseTopic.subscribe((pose) => {
             this.setState({pose_msg: pose});
             });
-            
+
             this.setState({
                 connected: true,
                 loading: false,
@@ -163,6 +174,12 @@ class ROSWrapper extends React.Component {
         } else {
             slamOn = <Message warning> WARNING: NO ROBOT POSE DETECTED, CHECK CAMERA FEED 10.1.1.184:8888 </Message>
         }
+
+        var scansOn = '';
+
+        if (this.state.scans) {} else {
+            scansOn = <Message warning> DANGER!!! Collision Avoidance System not working. Check LIDAR. </Message>
+        }
         //If connected
         if (this.state.connected) {
             return (
@@ -170,6 +187,7 @@ class ROSWrapper extends React.Component {
                         <Card> <Button onClick={this.cancel} color="red" active={this.state.goal} >STOP</Button> </Card>
                         { motorOn }
                         { slamOn }
+                        { scansOn }
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
                         <NippleController 
