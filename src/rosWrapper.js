@@ -4,7 +4,6 @@ import ROSLIB from 'roslib'
 import { Divider, Button, Header, Card, Grid, Message } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
-import Nav2d from './react-nav2djs';
 import NippleController from "./nippleControl";
 
 class ROSWrapper extends React.Component {
@@ -77,6 +76,10 @@ class ROSWrapper extends React.Component {
                 this.setState({motorOn: motor_message.data});
             });
 
+            poseTopic.subscribe((pose) => {
+            this.setState({pose_msg: pose});
+            });
+            
             this.setState({
                 connected: true,
                 loading: false,
@@ -154,13 +157,19 @@ class ROSWrapper extends React.Component {
                 </Message>
             </>)
         }
+        var slamOn = '';
 
+        if ( this.state.pose_msg ) {
+        } else {
+            slamOn = <Message warning> WARNING: NO ROBOT POSE DETECTED, CHECK CAMERA FEED 10.1.1.184:8888 </Message>
+        }
         //If connected
         if (this.state.connected) {
             return (
                     <>
                         <Card> <Button onClick={this.cancel} color="red" active={this.state.goal} >STOP</Button> </Card>
                         { motorOn }
+                        { slamOn }
                         <Panel actionClient={this.state.actionClient} set_goal={this.set_goal} reverse={this.reverse} />
                         <Divider />
                         <NippleController 
@@ -176,9 +185,6 @@ class ROSWrapper extends React.Component {
                         />
                         <Divider />
                         <ROSInfoView ros_state={this.state} />
-                        <Divider />
-                        <Nav2d ros={this.state.ros}  />
-                        <div id='nav2d'> </div>
                         <Divider />
                     </>
 

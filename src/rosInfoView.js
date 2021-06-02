@@ -9,16 +9,13 @@ class ROSInfoView extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {pose_msg: {pose: "{}"},
-                      battery_msg: {}
+        this.state = {battery_msg: {}
         };
     }
 
     componentDidMount = () => {
         // assume connected. 
-        this.props.ros_state.poseTopic.subscribe((pose) => {
-            this.setState({pose_msg: pose});
-        });
+     
         this.props.ros_state.batteryTopic.subscribe((bat_msg) => {
             this.setState({battery_msg: bat_msg});
         })
@@ -27,11 +24,7 @@ class ROSInfoView extends React.Component {
 
     render() {
 
-        var msg;
-        if (this.state.pose_msg.pose.pose) {
-            msg = this.state.pose_msg.pose.pose.position.x;
-        }
-        else { msg = "No data"}
+       
 
         var voltage;
         if (this.state.battery_msg.voltage) {
@@ -45,9 +38,7 @@ class ROSInfoView extends React.Component {
 
        return ( 
            <div>
-               Robot pose: 
-               { msg.toString() }
-               <br></br>
+           
                
                <RadialGauge
                     units='V'
