@@ -1,9 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { Container, Grid, Image, Header, List, Icon } from 'semantic-ui-react';
-import Panel from "./panel";
+import { Container,Header, Icon } from 'semantic-ui-react';
 import ROSWrapper from "./rosWrapper.js";
 
 function App() {

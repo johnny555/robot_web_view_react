@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid, Image, Icon, Header, Button, List, Card } from 'semantic-ui-react'
 import Waypoint from "./waypoint";
 
 class Panel extends React.Component {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import ReactNipple from "react-nipple";
-import DebugView from "react-nipple/lib/DebugView";
 import "react-nipple/lib/styles.css";
 
 

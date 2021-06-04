@@ -1,7 +1,7 @@
 import React from 'react'
 import ROSLIB from 'roslib'
 
-import { Divider, Button, Header, Card, Grid, Message } from 'semantic-ui-react';
+import { Divider, Button, Card, Message } from 'semantic-ui-react';
 import Panel from './panel';
 import ROSInfoView from './rosInfoView';
 import NippleController from "./nippleControl";
@@ -32,7 +32,6 @@ class ROSWrapper extends React.Component {
     }
 
     connect = () => {
-        let loading = true;
         console.log(this.state);
         let ros = new ROSLIB.Ros({
             url: this.state.rosbridge_address + ':' + this.state.port
@@ -156,12 +155,9 @@ class ROSWrapper extends React.Component {
 
     render() {
 
-        var stop_button_active = 'disabled';
-        if (this.state.goal) {
-            stop_button_active='disabled';
-        }
+       
         var motorOn = '';
-        if (this.state.motorOn == false) {
+        if (this.state.motorOn === false) {
             motorOn =  (
             <>
                 <Message warning>  WARNING: MOTOR OFF. Check e-stop.

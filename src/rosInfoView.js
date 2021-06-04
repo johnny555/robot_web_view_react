@@ -1,6 +1,4 @@
 import React from 'react'
-import { Grid, Image, Icon, Header, Button, List, Card } from 'semantic-ui-react'
-import Waypoint from "./waypoint";
 import {RadialGauge} from 'react-canvas-gauges';
 
 class ROSInfoView extends React.Component {

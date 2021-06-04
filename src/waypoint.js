@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Image, Icon, Header, Button, Card } from 'semantic-ui-react'
+import { Button, Card } from 'semantic-ui-react'
 import ROSLIB from 'roslib'
 
 class WayPoint extends React.Component {
@@ -57,13 +57,6 @@ class WayPoint extends React.Component {
 
 
     render() {
-        var meta = "";
-
-        if (this.moving) {
-            meta = "moving to goal ...";
-        }
-        var stopButton = "";
-
 
         return (
             <Card>
